@@ -9,13 +9,22 @@
  * @property {number} cost
  * @property {string} description
  */
+function Spell (name, cost, description) {
+
+   this.name = name;
+   this.cost = cost;
+   this.description = description;
+}
+
 
   /**
    * Print out all spell details and format it nicely.
    * The format doesnt matter, as long as it contains the spell name, cost, and description.
    * @name printDetails
    */
-
+   Spell.prototype.printDetails = function() {
+      console.log("Name: " + this.name + "Cost: " + this.cost +  "Description: " + this.description);
+   };
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
@@ -40,7 +49,17 @@
  * @property {number} damage
  * @property {string} description
  */
+function DamageSpell (name, cost, damage, description) {
+   this.damage = damage;
 
+   Spell.call(this, name, cost, damage, description);
+}
+   DamageSpell.prototype = Object.create(Spell.prototype, {
+      constructor : {
+         value : Spell
+      }
+   });
+ 
 /**
  * Now that you've created some spells, let's create
  * `Spellcaster` objects that can use them!
